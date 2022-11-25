@@ -11,7 +11,7 @@ def get_users():
 
 @app.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
-    user = db.session.query(models.User).filter(models.User.id == user_id).all()
+    user = db.session.query(models.User).filter(models.User.id == user_id).one()
 
     if user is None:
         abort(404)
@@ -28,7 +28,7 @@ def get_orders():
 
 @app.route('/orders/<int:order_id>', methods=['GET'])
 def get_order(order_id):
-    order = db.session.query(models.Order).filter(models.Order.id == order_id).all()
+    order = db.session.query(models.Order).filter(models.Order.id == order_id).one()
 
     if order is None:
         abort(404)
@@ -45,7 +45,7 @@ def get_offers():
 
 @app.route('/offers/<int:offer_id>', methods=['GET'])
 def get_offer(offer_id):
-    offer = db.session.query(models.Offer).filter(models.Offer.id == offer_id).all()
+    offer = db.session.query(models.Offer).filter(models.Offer.id == offer_id).one()
 
     if offer is None:
         abort(404)
@@ -78,7 +78,7 @@ def edit_user(user_id):
     return {}
 
 
-@app.route('/users/<int:user_id>', methods=['DELITE'])
+@app.route('/users/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
 
     result = db.session.query(models.User).filter(models.User.id == user_id).delete()
